@@ -1,0 +1,900 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños #22</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --dark-card: #111111;
+            --red: #c41e3a;
+            --red-bright: #e63950;
+            --red-dark: #8b0000;
+            --red-glow: rgba(196, 30, 58, 0.4);
+            --white: #f5f5f5;
+            --text-muted: #bbbbbb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--black);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0;
+            animation: floatUp linear infinite;
+            z-index: 1;
+            font-size: 18px;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.6);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+            visibility: visible;
+            opacity: 1;
+            padding: 20px;
+        }
+
+            #modal-overlay.hidden {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+
+        .modal-card {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border: 2px solid var(--red);
+            border-radius: 20px;
+            padding: 50px 45px;
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 60px var(--red-glow), 0 0 120px rgba(196, 30, 58, 0.15), inset 0 0 40px rgba(196, 30, 58, 0.05);
+            animation: pulseGlow 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 60px var(--red-glow), 0 0 120px rgba(196, 30, 58, 0.15), inset 0 0 40px rgba(196, 30, 58, 0.05);
+            }
+
+            50% {
+                box-shadow: 0 0 80px rgba(196, 30, 58, 0.55), 0 0 160px rgba(196, 30, 58, 0.2), inset 0 0 50px rgba(196, 30, 58, 0.08);
+            }
+        }
+
+        .modal-card::before {
+            content: '🎂';
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 42px;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        .modal-card h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--white);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .modal-card .question-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+            color: var(--red-bright);
+        }
+
+        .modal-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-si {
+            padding: 14px 38px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-si-solid {
+            background: var(--red);
+            color: var(--white);
+            border: 2px solid var(--red);
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.4);
+        }
+
+            .btn-si-solid:hover {
+                background: var(--red-bright);
+                border-color: var(--red-bright);
+                box-shadow: 0 12px 35px rgba(230, 57, 80, 0.55);
+                transform: translateY(-3px);
+            }
+
+        .btn-si-outline {
+            background: transparent;
+            color: var(--red-bright);
+            border: 2px solid var(--red);
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.15);
+        }
+
+            .btn-si-outline:hover {
+                background: rgba(196, 30, 58, 0.12);
+                border-color: var(--red-bright);
+                box-shadow: 0 12px 35px rgba(196, 30, 58, 0.35);
+                transform: translateY(-3px);
+                color: var(--red-bright);
+            }
+
+        .btn-si:active {
+            transform: translateY(0px) scale(0.97);
+        }
+
+        #main-content {
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            max-width: 780px;
+            width: 100%;
+        }
+
+            #main-content.visible {
+                opacity: 1;
+                transform: scale(1);
+                pointer-events: auto;
+            }
+
+        .card-container {
+            position: relative;
+            background: linear-gradient(160deg, #141414, #0a0a0a);
+            border: 2px solid var(--red);
+            border-radius: 18px;
+            padding: 70px 55px 60px;
+            box-shadow: 0 0 70px var(--red-glow), 0 0 150px rgba(196, 30, 58, 0.12), inset 0 0 50px rgba(196, 30, 58, 0.04);
+            overflow: visible;
+        }
+
+            .card-container::before {
+                content: '';
+                position: absolute;
+                top: -1px;
+                left: -1px;
+                right: -1px;
+                bottom: -1px;
+                border-radius: 18px;
+                border: 1px solid rgba(196, 30, 58, 0.3);
+                pointer-events: none;
+            }
+
+        .polaroid {
+            position: absolute;
+            background: #f0f0f0;
+            padding: 7px 7px 22px 7px;
+            border-radius: 4px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+            .polaroid:hover {
+                transform: scale(1.08) rotate(0deg) !important;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 5px 15px rgba(196, 30, 58, 0.2);
+                z-index: 5;
+            }
+
+            .polaroid img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 2px;
+                filter: saturate(0.85) contrast(1.05);
+            }
+
+            .polaroid .caption {
+                display: block;
+                text-align: center;
+                font-size: 11px;
+                font-weight: 500;
+                color: #444;
+                font-family: 'Poppins', sans-serif;
+                letter-spacing: 1px;
+                position: absolute;
+                bottom: 6px;
+                left: 0;
+                right: 0;
+            }
+
+        .polaroid-1 {
+            top: -35px;
+            left: -30px;
+            width: 105px;
+            height: 110px;
+            transform: rotate(-8deg);
+        }
+
+        .polaroid-2 {
+            top: -28px;
+            right: -25px;
+            width: 100px;
+            height: 115px;
+            transform: rotate(6deg);
+        }
+
+        .polaroid-3 {
+            top: 18%;
+            left: -45px;
+            width: 110px;
+            height: 105px;
+            transform: rotate(-5deg);
+        }
+
+        .polaroid-4 {
+            top: 22%;
+            right: -42px;
+            width: 115px;
+            height: 110px;
+            transform: rotate(7deg);
+        }
+
+        .polaroid-5 {
+            top: 50%;
+            left: -38px;
+            width: 100px;
+            height: 112px;
+            transform: rotate(4deg);
+        }
+
+        .polaroid-6 {
+            top: 48%;
+            right: -35px;
+            width: 108px;
+            height: 100px;
+            transform: rotate(-6deg);
+        }
+
+        .polaroid-7 {
+            bottom: 18%;
+            left: -40px;
+            width: 112px;
+            height: 108px;
+            transform: rotate(3deg);
+        }
+
+        .polaroid-8 {
+            bottom: 20%;
+            right: -38px;
+            width: 105px;
+            height: 112px;
+            transform: rotate(-4deg);
+        }
+
+        .polaroid-9 {
+            bottom: -30px;
+            left: 8%;
+            width: 100px;
+            height: 105px;
+            transform: rotate(-7deg);
+        }
+
+        .polaroid-10 {
+            bottom: -25px;
+            right: 6%;
+            width: 108px;
+            height: 100px;
+            transform: rotate(5deg);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+            .card-content .celebration-icon {
+                font-size: 3.5rem;
+                display: block;
+                margin-bottom: 12px;
+                animation: bounce 2s ease-in-out infinite;
+            }
+
+            .card-content h1 {
+                font-family: 'Playfair Display', serif;
+                font-size: 2.8rem;
+                font-weight: 700;
+                color: var(--white);
+                letter-spacing: 2px;
+                margin-bottom: 8px;
+                text-shadow: 0 0 30px rgba(196, 30, 58, 0.5);
+            }
+
+            .card-content .age-badge {
+                display: inline-block;
+                font-family: 'Playfair Display', serif;
+                font-size: 4.5rem;
+                font-weight: 700;
+                color: var(--red-bright);
+                line-height: 1;
+                letter-spacing: 3px;
+                text-shadow: 0 0 40px rgba(230, 57, 80, 0.7), 0 0 80px rgba(196, 30, 58, 0.4);
+                margin-bottom: 8px;
+                position: relative;
+            }
+
+                .card-content .age-badge::before,
+                .card-content .age-badge::after {
+                    content: '✦';
+                    font-size: 1.8rem;
+                    color: var(--red);
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    opacity: 0.7;
+                }
+
+                .card-content .age-badge::before {
+                    left: -50px;
+                }
+
+                .card-content .age-badge::after {
+                    right: -50px;
+                }
+
+        .card-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red-bright), transparent);
+            margin: 18px auto;
+            border-radius: 2px;
+        }
+
+        .card-content .message {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+            max-width: 520px;
+            margin: 0 auto 15px;
+        }
+
+            .card-content .message strong {
+                color: var(--white);
+                font-weight: 500;
+            }
+
+            .card-content .message .highlight {
+                color: var(--red-bright);
+                font-weight: 500;
+            }
+
+        .card-content .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--white);
+            letter-spacing: 1.5px;
+            margin-top: 20px;
+            opacity: 0.9;
+        }
+
+        .card-content .emoji-row {
+            font-size: 1.8rem;
+            letter-spacing: 12px;
+            margin-top: 15px;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 60px 30px;
+            }
+
+            .card-container {
+                padding: 55px 30px 45px;
+                border-radius: 14px;
+            }
+
+            .card-content h1 {
+                font-size: 2rem;
+            }
+
+            .card-content .age-badge {
+                font-size: 3.2rem;
+            }
+
+                .card-content .age-badge::before {
+                    left: -30px;
+                    font-size: 1.2rem;
+                }
+
+                .card-content .age-badge::after {
+                    right: -30px;
+                    font-size: 1.2rem;
+                }
+
+            .card-content .message {
+                font-size: 0.9rem;
+                line-height: 1.7;
+            }
+
+            .polaroid {
+                padding: 5px 5px 16px 5px;
+            }
+
+                .polaroid .caption {
+                    font-size: 9px;
+                    bottom: 4px;
+                }
+
+            .polaroid-1 {
+                width: 70px;
+                height: 75px;
+                top: -20px;
+                left: -15px;
+            }
+
+            .polaroid-2 {
+                width: 65px;
+                height: 78px;
+                top: -18px;
+                right: -12px;
+            }
+
+            .polaroid-3 {
+                width: 75px;
+                height: 70px;
+                left: -22px;
+                top: 15%;
+            }
+
+            .polaroid-4 {
+                width: 78px;
+                height: 75px;
+                right: -20px;
+                top: 18%;
+            }
+
+            .polaroid-5 {
+                width: 68px;
+                height: 76px;
+                left: -18px;
+                top: 45%;
+            }
+
+            .polaroid-6 {
+                width: 72px;
+                height: 68px;
+                right: -16px;
+                top: 43%;
+            }
+
+            .polaroid-7 {
+                width: 76px;
+                height: 72px;
+                left: -18px;
+                bottom: 15%;
+            }
+
+            .polaroid-8 {
+                width: 70px;
+                height: 76px;
+                right: -16px;
+                bottom: 17%;
+            }
+
+            .polaroid-9 {
+                width: 68px;
+                height: 72px;
+                bottom: -18px;
+                left: 5%;
+            }
+
+            .polaroid-10 {
+                width: 72px;
+                height: 68px;
+                bottom: -16px;
+                right: 4%;
+            }
+
+            .modal-card {
+                padding: 40px 28px;
+            }
+
+                .modal-card h2 {
+                    font-size: 1.7rem;
+                }
+
+            .btn-si {
+                padding: 12px 28px;
+                font-size: 1rem;
+            }
+
+            .modal-buttons {
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 50px 15px;
+            }
+
+            .card-container {
+                padding: 45px 18px 40px;
+            }
+
+            .card-content h1 {
+                font-size: 1.6rem;
+                letter-spacing: 1px;
+            }
+
+            .card-content .age-badge {
+                font-size: 2.5rem;
+            }
+
+                .card-content .age-badge::before,
+                .card-content .age-badge::after {
+                    display: none;
+                }
+
+            .card-content .message {
+                font-size: 0.82rem;
+                line-height: 1.6;
+            }
+
+            .card-content .signature {
+                font-size: 1.1rem;
+            }
+
+            .polaroid {
+                display: none;
+            }
+
+            .polaroid-1,
+            .polaroid-2,
+            .polaroid-3,
+            .polaroid-4,
+            .polaroid-5,
+            .polaroid-6,
+            .polaroid-7,
+            .polaroid-8,
+            .polaroid-9,
+            .polaroid-10 {
+                display: none;
+            }
+        }
+
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 18px;
+            background: var(--red-bright);
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0;
+            animation: confettiFall 2.5s ease-out forwards;
+            border-radius: 2px;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-20vh) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="modal-overlay">
+        <div class="modal-card">
+            <span class="question-icon">💌</span>
+            <h2>¿Estás lista?</h2>
+            <p>Hay algo especial esperándote...</p>
+            <div class="modal-buttons">
+                <button class="btn-si btn-si-solid" id="btn-si-1">Sí</button>
+                <button class="btn-si btn-si-outline" id="btn-si-2">Sí</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="card-container">
+
+            <!-- Fotos polaroid collage en las orillas -->
+            <div class="polaroid polaroid-1">
+                <img src="1.jpeg" alt="Recuerdo 1">
+                <span class="caption">✨</span>
+            </div>
+            <div class="polaroid polaroid-2">
+                <img src="2.jpeg" alt="Recuerdo 2">
+                <span class="caption">21+1</span>
+            </div>
+            <div class="polaroid polaroid-3">
+                <img src="3.jpeg" alt="Recuerdo 3">
+                <span class="caption">🎈</span>
+            </div>
+            <div class="polaroid polaroid-4">
+                <img src="4.jpeg" alt="Recuerdo 4">
+                <span class="caption">#22</span>
+            </div>
+            <div class="polaroid polaroid-5">
+                <img src="5.jpeg" alt="Recuerdo 5">
+                <span class="caption">💫</span>
+            </div>
+            <div class="polaroid polaroid-6">
+                <img src="6.jpeg" alt="Recuerdo 6">
+                <span class="caption">🎂</span>
+            </div>
+            <div class="polaroid polaroid-7">
+                <img src="7.jpeg" alt="Recuerdo 7">
+                <span class="caption">✨</span>
+            </div>
+            <div class="polaroid polaroid-8">
+                <img src="8.jpeg" alt="Recuerdo 8">
+                <span class="caption">💕</span>
+            </div>
+            <div class="polaroid polaroid-9">
+                <img src="9.jpeg" alt="Recuerdo 9">
+                <span class="caption">🎈</span>
+            </div>
+            <div class="polaroid polaroid-10">
+                <img src="10.jpeg" alt="Recuerdo 10">
+                <span class="caption">22</span>
+            </div>
+
+            <div class="card-content">
+                <span class="celebration-icon">🎂</span>
+                <h1>¡Hola buapa feliz Cumpleaños!</h1>
+                <div class="age-badge">#22</div>
+                <div class="card-divider"></div>
+                <p class="message">
+                    Hoy celebramos tu pumple <strong>#22 </strong> y ahora quiero aprovechar para contarte un poco de tu regalo :D.
+                    <br><br>
+                    Para tu regalo de cumpleaños eh planeado algo muy interesante y especial para tu.
+                    <br />
+                    Pero para que sepas amor tus regalos estan basados tambien en cosas que me has dicho que quieres. Obviamente la lista es larga pero intento cumplir en todo lo que pueda.
+                    <br />
+                    <span class="highlight">Para el primer regalo te refrescare la memoria. Un dia en parisina me dijiste de comprar unas cajitas para pintarlas juntos por eso te pregunte los colorsillos.</span>
+                    <br />
+                    <span class="highlight">
+                        Para los siguientes regalos prepare una seccion llamada ignacio donde te consegui unas cuerdas que tanto querias. Unos guantesillos para tus manitas de princesa.
+                        Y por ultimo unas rodilleras para tu suculentas y crujientes patotas.
+                    </span>
+                    <br />
+                    <span class="highlight">Y por ultimo pero no menos importante logre conseguirte una funda de tu banda favorita :P</span>.
+                    <br><br>
+                    Y ahora si amor apartir de aqui ya es algo para tu ya puedes dejar de leer en voz alta si es que lo estabas haciendo JAJAJAJAJA.
+                    <br><br>
+                    Ahora si amor unas bellas palabras para la cumpleañera mas hermosa de todas. Amor muchas felicidades espero que dios y tu me permitan acompañarte durante muchos cumpleaños mas. 
+                    Es un honor para yo poder acompañarte y compartir los momentos mas bonitos contigo y me encan celebrar con tu y tambien tu y tambien comer con tu y todo lo que tenga que ver con tu.
+                    Te amo mucho mi amorcita bella no sabes lo feliz que me haces y lo mucho que te amo. Eres la persona mas perfecta que eh conocido y todo a tu lado es perfecto. Me encanta estar con tu y pasar 
+                    el tiempo con tu. De velda que me llenas de orgullo y me haces sentir el hombre mas afortunado del mundo al saber que tu eres mi bella monkynovia. De todo corazon espero que te la pases muy bien el dia de hoy amor
+                    y espero que te guste tu regalo tus flores y todo lo que tengo pensado para darte por que no solo hoy si no siempre te dare lo mejor de yo y todo lo que te haga feliz siempre te lo dare. Siempre pideme lo que quieras
+                    que yo siempre te intentare dar lo mejor con tal de verte feliz Te amo amor eres el amor de mi vida y jamas me cansare de tu ❤️.
+                     <br />
+                     Mucha gracia por existir y por hacer del mundo un lugar más bonito para yo.💕
+                </p>
+                <br />
+                <div class="emoji-row">🎈 🎂 ✨ 🎁 💫</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // --- Referencias a elementos ---
+            const modalOverlay = document.getElementById('modal-overlay');
+            const mainContent = document.getElementById('main-content');
+            const btnSi1 = document.getElementById('btn-si-1');
+            const btnSi2 = document.getElementById('btn-si-2');
+
+            // --- Función para abrir la carta (cerrar modal) ---
+            function openCard() {
+                // Añadir clase para ocultar el modal con fade-out
+                modalOverlay.classList.add('hidden');
+
+                // Mostrar el contenido principal con animación
+                setTimeout(() => {
+                    mainContent.classList.add('visible');
+                    launchConfetti();
+                    launchParticles();
+                }, 500);
+            }
+
+            // --- Función para lanzar confeti ---
+            function launchConfetti() {
+                const colors = ['#c41e3a', '#e63950', '#ff4d6d', '#8b0000', '#ff6b81', '#f5f5f5'];
+                const piecesCount = 40;
+
+                for (let i = 0; i < piecesCount; i++) {
+                    const piece = document.createElement('div');
+                    piece.classList.add('confetti-piece');
+                    piece.style.left = Math.random() * 100 + 'vw';
+                    piece.style.top = '-5vh';
+                    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    piece.style.width = (Math.random() * 8 + 5) + 'px';
+                    piece.style.height = (Math.random() * 14 + 8) + 'px';
+                    piece.style.animationDelay = (Math.random() * 1.2) + 's';
+                    piece.style.animationDuration = (Math.random() * 1.5 + 1.8) + 's';
+                    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                    document.body.appendChild(piece);
+
+                    // Limpiar el confeti después de la animación
+                    setTimeout(() => {
+                        piece.remove();
+                    }, 4200);
+                }
+            }
+
+            // --- Función para lanzar partículas flotantes de fondo ---
+            function launchParticles() {
+                const emojis = ['❤️', '✨', '🎈', '💫', '🎂', '💕', '⭐', '🌹', '🎉', '💖'];
+                const particleCount = 18;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    particle.style.left = Math.random() * 95 + 'vw';
+                    particle.style.fontSize = (Math.random() * 14 + 12) + 'px';
+                    particle.style.animationDelay = (Math.random() * 6) + 's';
+                    particle.style.animationDuration = (Math.random() * 8 + 7) + 's';
+                    particle.style.opacity = '0';
+                    document.body.appendChild(particle);
+
+                    // Eliminar la partícula después de la animación
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 15000);
+                }
+            }
+
+            // --- Event listeners para ambos botones "Sí" ---
+            btnSi1.addEventListener('click', openCard);
+            btnSi2.addEventListener('click', openCard);
+
+            // --- Efecto de hover en los botones con sonido visual (corazón) ---
+            btnSi1.addEventListener('mouseenter', () => {
+                btnSi1.textContent = 'Sí ❤️';
+            });
+            btnSi1.addEventListener('mouseleave', () => {
+                btnSi1.textContent = 'Sí';
+            });
+
+            btnSi2.addEventListener('mouseenter', () => {
+                btnSi2.textContent = 'Sí ❤️';
+            });
+            btnSi2.addEventListener('mouseleave', () => {
+                btnSi2.textContent = 'Sí';
+            });
+
+            // --- Prevenir scroll del body mientras el modal está visible ---
+            document.body.style.overflow = 'hidden';
+            const observer = new MutationObserver(() => {
+                if (modalOverlay.classList.contains('hidden')) {
+                    document.body.style.overflow = 'auto';
+                    observer.disconnect();
+                }
+            });
+            observer.observe(modalOverlay, { attributes: true, attributeFilter: ['class'] });
+
+            // --- Iniciar algunas partículas suaves de fondo desde el inicio ---
+            (function initialParticles() {
+                const emojis = ['✨', '💫', '⭐'];
+                for (let i = 0; i < 6; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    particle.style.left = Math.random() * 95 + 'vw';
+                    particle.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                    particle.style.animationDelay = (Math.random() * 5) + 's';
+                    particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 20000);
+                }
+            })();
+        })();
+    </script>
+</body>
+</html>
